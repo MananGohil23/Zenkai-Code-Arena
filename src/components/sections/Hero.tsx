@@ -67,11 +67,15 @@ export function Hero() {
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -70]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
 
-  // The two airborne fighters fly up and outward as you scroll.
+  // The airborne fighters fly up and outward as you scroll.
   const gokuY = useTransform(scrollYProgress, [0, 1], [0, -70]);
   const gokuX = useTransform(scrollYProgress, [0, 1], [0, -40]);
   const trunksY = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const trunksX = useTransform(scrollYProgress, [0, 1], [0, 70]);
+  const friezaY = useTransform(scrollYProgress, [0, 1], [0, -110]);
+  const friezaX = useTransform(scrollYProgress, [0, 1], [0, 55]);
+  const krillinY = useTransform(scrollYProgress, [0, 1], [0, -55]);
+  const krillinX = useTransform(scrollYProgress, [0, 1], [0, -35]);
 
   return (
     <section
@@ -217,6 +221,70 @@ export function Hero() {
         </motion.div>
       </motion.div>
 
+      {/* Frieza — villain, upper right (behind Trunks) */}
+      <motion.div
+        style={{ y: friezaY, x: friezaX, zIndex: 10 }}
+        className="pointer-events-none absolute right-[3%] top-[14%] z-[15] w-28 sm:right-[6%] sm:top-[18%] sm:w-40 md:w-48"
+      >
+        <motion.div
+          animate={{ y: [0, -12, 0], rotate: [-2, 2, -2] }}
+          transition={{ duration: 5.6, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+          className="relative"
+        >
+          <div
+            className="absolute inset-0 -z-10 scale-125 rounded-full blur-2xl"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 45%, var(--accent-soft), transparent 70%)",
+            }}
+          />
+          <Image
+            src="/figures/frieza.webp"
+            alt="Frieza in his final form"
+            width={600}
+            height={1023}
+            priority
+            className="h-auto w-full"
+            style={{
+              filter:
+                "drop-shadow(0 18px 22px rgba(0,0,0,0.55)) drop-shadow(0 0 32px var(--accent-soft))",
+            }}
+          />
+        </motion.div>
+      </motion.div>
+
+      {/* Krillin — lower left */}
+      <motion.div
+        style={{ y: krillinY, x: krillinX }}
+        className="pointer-events-none absolute bottom-[10%] left-[3%] z-[15] w-28 sm:bottom-[14%] sm:left-[6%] sm:w-36 md:w-44"
+      >
+        <motion.div
+          animate={{ y: [0, 14, 0], rotate: [1.5, -1.5, 1.5] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
+          className="relative"
+        >
+          <div
+            className="absolute inset-0 -z-10 scale-125 rounded-full blur-2xl"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 55%, var(--accent-soft), transparent 70%)",
+            }}
+          />
+          <Image
+            src="/figures/krillin.webp"
+            alt="Krillin ready for battle"
+            width={549}
+            height={816}
+            priority
+            className="h-auto w-full"
+            style={{
+              filter:
+                "drop-shadow(0 18px 22px rgba(0,0,0,0.55)) drop-shadow(0 0 30px var(--accent-soft))",
+            }}
+          />
+        </motion.div>
+      </motion.div>
+
       {/* --- Foreground content --- */}
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
@@ -252,16 +320,22 @@ export function Hero() {
 
           <motion.div
             initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
-            animate={{ opacity: 1, scale: 1, rotate: -3 }}
+            animate={{ opacity: 1, scale: 1, rotate: -2 }}
             transition={{ duration: 0.7, delay: 0.05 }}
-            className="relative mb-7 h-16 w-44 overflow-hidden rounded-lg border-2 border-black/70 bg-[#fffdf7] p-1.5 shadow-[6px_6px_0_0_rgba(0,0,0,0.55)] sm:h-20 sm:w-56"
+            className="relative mb-6 w-[min(88vw,560px)] sm:mb-8"
           >
             <Image
-              src="/dragon_ball_logo.jpg"
+              src="/figures/dbz-logo.webp"
               alt="Dragon Ball Z"
-              fill
+              width={733}
+              height={177}
               priority
-              className="object-contain"
+              sizes="(max-width: 640px) 88vw, 560px"
+              className="h-auto w-full"
+              style={{
+                filter:
+                  "drop-shadow(0 6px 0 rgba(0,0,0,0.35)) drop-shadow(0 0 40px var(--accent-soft))",
+              }}
             />
           </motion.div>
 

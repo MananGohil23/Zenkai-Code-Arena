@@ -6,10 +6,12 @@ import {
   AnimatePresence,
   useScroll,
   useMotionValueEvent,
+  useTransform,
   type MotionValue,
 } from "framer-motion";
 import { TIMELINE } from "@/constants/content";
 import { DragonBall } from "@/components/shared/DragonBall";
+import { Nimbus } from "@/components/shared/Nimbus";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
 function AnimatedNumber({ value }: { value: number }) {
@@ -128,6 +130,8 @@ export function PowerLevelTimeline() {
     setActive(index);
   });
 
+  const nimbusTop = useTransform(scrollYProgress, [0, 1], ["2%", "96%"]);
+
   return (
     <section id="timeline" className="relative px-6 py-24 sm:px-10 sm:py-32">
       <SectionHeading
@@ -152,6 +156,14 @@ export function PowerLevelTimeline() {
               background: "linear-gradient(to bottom, var(--accent), var(--accent-2))",
             }}
           />
+
+          {/* Flying Nimbus rides the spine as you scroll */}
+          <motion.div
+            className="pointer-events-none absolute left-7 z-20 w-16 -translate-x-1/2"
+            style={{ top: nimbusTop }}
+          >
+            <Nimbus className="w-full drop-shadow-[0_8px_10px_rgba(0,0,0,0.55)]" />
+          </motion.div>
 
           <div className="flex flex-col gap-10">
             {TIMELINE.map((milestone, index) => {

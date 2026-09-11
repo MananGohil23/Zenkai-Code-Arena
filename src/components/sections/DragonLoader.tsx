@@ -161,15 +161,15 @@ export function DragonLoader() {
                   <div className="absolute bottom-0 left-1/2 z-10 w-[min(58vw,320px)] -translate-x-1/2">
                     <div className="relative h-[min(52vh,360px)] w-full">
                       <Image
-                        src="/figures/goku.webp"
-                        alt="Shenron's chosen guide"
+                        src="/figures/master-roshi.webp"
+                        alt="Master Roshi, keeper of the Dragon Radar"
                         fill
                         priority
                         sizes="(max-width: 640px) 58vw, 320px"
                         className="animate-bob object-contain object-bottom drop-shadow-[0_16px_20px_rgba(0,0,0,0.35)]"
                       />
                     </div>
-                    <div className="ki-platform absolute -bottom-1 left-1/2 h-5 w-[78%] -translate-x-1/2 rounded-[100%] sm:h-7" />
+                    <div className="ki-platform absolute -bottom-1 left-0 right-0 mx-auto h-5 w-[78%] rounded-[100%] sm:h-7" />
                   </div>
                 </div>
 

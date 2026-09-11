@@ -13,6 +13,9 @@ const FIGURE_SRC: Record<string, string> = {
   Piccolo: "/figures/piccolo.webp",
   Gohan: "/figures/gohan.webp",
   Trunks: "/figures/trunks.webp",
+  "Master Roshi": "/figures/master-roshi.webp",
+  Krillin: "/figures/krillin.webp",
+  Frieza: "/figures/frieza.webp",
 };
 
 const CORNERS = [

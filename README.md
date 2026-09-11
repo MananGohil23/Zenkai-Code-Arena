@@ -35,12 +35,13 @@ a scroll-driven, parallax single-page experience.
   cut-out artwork, per-fighter colour schemes, and a spinning Dragon Ball.
 - **Per-fighter theming** — choosing a fighter recolours the whole site (accents, glows,
   gradients, scroll-progress bar) via CSS variables.
-- **Parallax hero** — five layered background planes plus ambient ki embers, floating
-  Dragon Ball, and flying Goku/Trunks cut-outs that drift on scroll.
-- **Global page backdrop** — a fixed desert-horizon scene with a blueprint grid and an
-  accent glow that follows the section in view.
+- **Parallax hero** — five layered background planes plus ambient ki embers, a floating
+  Dragon Ball, and airborne Goku / Trunks / Krillin / Frieza cut-outs that drift on scroll.
+- **Layered scene backdrop** — three painted DBZ locales (Kame House, Namek, the wasteland)
+  that cross-fade and parallax as you scroll, colour-graded toward the active fighter's
+  palette, under a blueprint grid and a per-section accent glow.
 - **Scroll-driven timeline** — a sticky "Scouter" HUD with an animated power-level readout
-  and page-path progress.
+  and page-path progress, with the Flying Nimbus riding the spine as you scroll.
 - **Interactive live-arena widgets** — registration counter, countdown timer, and a
   "Guess the Saiyan" mini-game with true silhouettes and score tracking.
 - **Retro sound design** — original chiptune music per fighter and UI SFX, mute-by-default.
@@ -131,7 +132,9 @@ npm run dev      # http://localhost:3000
 │   ├── figures/          # transparent character cut-outs (*.webp)
 │   ├── hero/             # desert parallax layers (sky/mesas/mountains/hills/sand)
 │   ├── sfx/              # UI sound effects (blip/confirm/boot/error.wav)
-│   └── *.jpg             # source artwork + logo + hero backdrop
+│   ├── Background1..3.jpg # painted scene source art (Kame House / Namek / wasteland)
+│   ├── scenes/           # enhanced 1920×1080 scene backdrops (*.webp)
+│   └── *.jpg             # character source art + logo
 ├── scripts/              # asset generators (Node ESM, run with `node`)
 │   ├── generate-sfx.mjs
 │   ├── generate-themes.mjs
@@ -142,7 +145,7 @@ npm run dev      # http://localhost:3000
 │   │   ├── layout/       # Navbar, PageBackdrop, SmoothScroll, SectionWrapper
 │   │   ├── sections/     # page sections (Hero, DragonLoader, Timeline, FAQ, …)
 │   │   ├── ui/           # pixel UI kit (PixelButton, DialogueBox, CRTOverlay, …)
-│   │   └── shared/       # DragonBall, AuraFigure, EnergySphere, SectionHeading
+│   │   └── shared/       # DragonBall, Nimbus, AuraFigure, EnergySphere, SectionHeading
 │   ├── constants/        # content.ts (copy/data) + fighters.ts (themes)
 │   ├── context/          # ThemeContext (active fighter → CSS vars)
 │   ├── hooks/            # useIntroGate, useSound, useTypewriter, useScrollReveal, …
@@ -164,7 +167,7 @@ npm run dev      # http://localhost:3000
 - Rendered full-screen (`z-9999`) whenever `introSeen` is false. **Not persisted**, so a
   hard refresh replays the intro.
 - Phase 1 (`intro`): a "DRAGON RADAR" console, a typewriter monologue (`useTypewriter`), a
-  bobbing Goku cut-out, and a Skip control.
+  bobbing Master Roshi cut-out, and a Skip control.
 - Phase 2 (`selection`): a strip of fighter cards. Hovering shrinks the others and expands
   the hovered card (`flex-basis` transitions). Selecting a fighter calls `setFighter`,
   starts that fighter's theme, and marks the intro complete.
@@ -179,7 +182,7 @@ uses `var(--accent*)` recolours instantly.
 
 `useScroll` + `useTransform` map section scroll progress to per-layer `y` offsets (sky stays
 fixed; mesas/mountains/hills/sand sweep at increasing rates). Ambient ki embers, a floating
-Dragon Ball, and flying Goku/Trunks add motion.
+Dragon Ball, and flying Goku / Trunks / Krillin / Frieza add motion.
 
 ### Global backdrop (`src/components/layout/PageBackdrop.tsx`)
 
@@ -227,17 +230,21 @@ Fighter colours/names/quotes live in **`src/constants/fighters.ts`**.
 All generators are run with Node and write into `public/`. They use `sharp` where relevant.
 
 ```bash
-node scripts/generate-sfx.mjs       # -> public/sfx/*.wav
-node scripts/generate-themes.mjs    # -> public/audio/*.wav (per-fighter loops)
-node scripts/make-figures.mjs       # -> public/figures/*.webp (white-bg keyed out)
+node scripts/generate-sfx.mjs         # -> public/sfx/*.wav
+node scripts/generate-themes.mjs      # -> public/audio/*.wav (per-fighter loops)
+node scripts/make-figures.mjs         # -> public/figures/*.webp (white-bg keyed out)
+node scripts/enhance-backgrounds.mjs  # -> public/scenes/*.webp (upscaled + sharpened)
 ```
 
 - **`make-figures.mjs`** flood-fills near-white backgrounds from the image border (so
   interior whites like Vegeta's armour survive), erodes the anti-aliased fringe, strips any
-  uniform edge frame from the source scan, trims, and exports transparent WebP.
+  uniform edge frame from the source scan, trims, and exports transparent WebP. Also keys
+  out the Dragon Ball Z logo (`figures/dbz-logo.webp`).
 - **`generate-themes.mjs`** synthesises original chiptune loops (square/saw/triangle
   oscillators, bass, arpeggio, drums) per fighter and writes 16-bit PCM WAV.
 - **`generate-sfx.mjs`** synthesises the UI blip/confirm/boot/error sounds.
+- **`enhance-backgrounds.mjs`** Lanczos-upscales the painted scenes to 1920×1080 with a mild
+  unsharp mask so the browser stretches them far less when they fill the viewport.
 
 ---
 
@@ -281,8 +288,8 @@ vercel --prod   # production
 
 ## Credits & licenses
 
-- **Character art / logo / Kame House backdrop:** used as a fan homage; all rights belong
-  to their respective owners.
+- **Character art, logo, and scene backgrounds (`Background1..3.jpg`):** used as a fan
+  homage; all rights belong to their respective owners.
 - **Parallax hero layers:** "2d Desert Platformer Pack" by KingCreator11 — **CC0**
   (public domain), via [OpenGameArt](https://opengameart.org).
 - **Sound & music:** original compositions generated in this repository.

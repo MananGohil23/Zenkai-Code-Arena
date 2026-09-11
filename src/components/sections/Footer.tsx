@@ -3,7 +3,7 @@ import { EVENT, FOOTER_LINKS } from "@/constants/content";
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-void-line px-6 sm:px-10 py-16">
+    <footer className="relative z-20 border-t border-void-line px-6 sm:px-10 py-16">
       <div className="mx-auto max-w-5xl">
         <div className="grid grid-cols-1 sm:grid-cols-[1.2fr_1fr_1fr] gap-10">
           <div>

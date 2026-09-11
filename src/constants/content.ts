@@ -281,6 +281,21 @@ export const SAIYAN_GUESSES: SaiyanGuess[] = [
     answer: "Trunks",
     hint: "Came back from a future that never happened, carries a sword he rarely needs.",
   },
+  {
+    id: "sg6",
+    answer: "Master Roshi",
+    hint: "Bald martial-arts master with a beard and sunglasses, hiding out on a tiny island.",
+  },
+  {
+    id: "sg7",
+    answer: "Krillin",
+    hint: "Earth's smallest defender — a monk with six dots tattooed on his forehead.",
+  },
+  {
+    id: "sg8",
+    answer: "Frieza",
+    hint: "Galactic tyrant in his final form, partial to purple and long villain speeches.",
+  },
 ];
 
 export const FOOTER_LINKS = {

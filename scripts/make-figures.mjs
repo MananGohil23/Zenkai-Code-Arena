@@ -20,7 +20,7 @@ mkdirSync(outDir, { recursive: true });
 async function keyOutWhite(
   input,
   output,
-  { threshold = 234, halo = 208, removeEnclosedAbove } = {}
+  { threshold = 234, halo = 208, removeEnclosedAbove, resizeWidth = 600 } = {}
 ) {
   const { data, info } = await sharp(input)
     .ensureAlpha()
@@ -133,7 +133,7 @@ async function keyOutWhite(
 
   await sharp(data, { raw: { width, height, channels: 4 } })
     .trim({ threshold: 1 })
-    .resize({ width: 600, withoutEnlargement: true })
+    .resize({ width: resizeWidth, withoutEnlargement: true })
     .webp({ quality: 90, effort: 6 })
     .toFile(output);
 
@@ -176,11 +176,21 @@ const JOBS = [
   { src: "Vegeta.jpg", out: "vegeta.webp" },
   { src: "Piccolo.jpg", out: "piccolo.webp" },
   { src: "Gohan.jpg", out: "gohan.webp" },
+  { src: "Master_Roshi.jpg", out: "master-roshi.webp" },
+  { src: "krillin.jpg", out: "krillin.webp" },
+  { src: "Frieza.jpg", out: "frieza.webp" },
+  {
+    src: "dragon_ball_logo.jpg",
+    out: "dbz-logo.webp",
+    removeEnclosedAbove: 20,
+    resizeWidth: 1200,
+  },
 ];
 
 for (const job of JOBS) {
   await keyOutWhite(join(root, "public", job.src), join(outDir, job.out), {
     removeEnclosedAbove: job.removeEnclosedAbove,
+    resizeWidth: job.resizeWidth,
   });
 }
 
